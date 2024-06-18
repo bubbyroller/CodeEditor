@@ -1,0 +1,80 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Python Code Editor
+{% endblock %}
+
+{% block content %}
+    <script type="text/javascript">
+        var csrftoken = getCookie('csrftoken');
+
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        });
+    </script>
+    
+    <h1>Python Code Editor</h1>
+
+    <h2 id="salutation"></h2>
+
+    <div id="editor"></div>
+
+    <div class="d-grid gap-2">
+        <button class="btn btn-outline-success" type="button" onclick="runCode()">Run</button>
+    </div>
+
+    <div id="outputArea">
+        <h3>Output:</h3>
+        <pre id="output"></pre>
+    </div>
+
+    <script>
+        // Initialize Ace code editor
+        var editor = ace.edit("editor");
+        editor.setTheme("ace/theme/monokai");
+        editor.getSession().setMode("ace/mode/python");
+
+
+
+        editor.setFontSize("16px");
+        // Function to run the code in the Ace editor
+        function runCode() {
+            var code = editor.getValue();
+
+            // Make an AJAX request to the Django server for code execution
+            $.ajax({
+                type: "POST",
+                url: "run_code/", // URL of your Django view
+                headers: {
+                    'X-CSRFToken': csrftoken  // Include CSRF token in the request header
+                },
+                data: {
+                    code: code,
+                    language: 'python' // Fixed to Python
+                },
+                success: function(data) {
+                    if (data.result) {
+                        document.getElementById("output").innerText = data.result;
+                    } else {
+                        document.getElementById("output").innerText = data.error;
+                    }
+                },
+                error: function() {
+                    document.getElementById("output").innerText = "Error communicating with the server.";
+                }
+            });
+        }
+    </script>
+{% endblock %}

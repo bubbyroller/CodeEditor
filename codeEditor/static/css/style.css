@@ -1,0 +1,77 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    min-height: 100vh;
+    background-color: #00002b;
+    color: whitesmoke;
+    font-size: 3rem;
+}
+
+main{
+    padding: 1rem
+}
+
+section{
+    display: flex;
+    flex-flow: column;
+    gap: 1rem;
+}
+h2{
+    font-size: 2.5rem;
+}
+
+p{
+    font-size: 1rem;
+}
+
+h1{
+    text-decoration: underline;
+    text-decoration-color: #2ecc71;
+}
+
+h2#salutation {
+    font-size: 24px;
+    color: #2ecc71;
+    text-align: center;
+}
+
+#editor {
+    height: 400px;
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 20px;
+}
+
+button {
+    padding: 10px;
+    font-size: 16px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    left:0;
+    padding: 10px;
+    margin-bottom: 10px;
+    
+}
+
+#outputArea {
+    background-color: #ecf0f1;
+    padding: 20px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 600px;
+    color:#267959;
+}
+
+#output {
+    white-space: pre-wrap;
+}
+
+.custom-sidebar{
+    background-color: #00002b;
+}
